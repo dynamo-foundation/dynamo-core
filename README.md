@@ -1,5 +1,8 @@
 # Dynamo Core
 
+IMPORTANT: Production releases are always tagged.  The Master branch may, and probably does, contain non-production work in progress code.  If you plan on building from source, please pull a tagged release.
+
+
 Dynamo is built upon the effort of many individuals who, for over a decade, have championed the idea of currency by the people and for the people.  Our team is deeply grateful for their vision and effort.
 
 
