@@ -272,6 +272,7 @@ int main(int argc, char* argv[])
         printf("Unable to allocate 3GB hash block, aborting\n");
         exit(0);
     }
+    memset(g_hashBlock, 0, 1024ULL * 1024ULL * 3072ULL);
 
 #ifdef WIN32
     util::WinCmdLineArgs winArgs;
