@@ -267,7 +267,7 @@ int main(int argc, char* argv[])
     IS_TESTNET = true;
 
     //todo - need a global var for hash block size
-    g_hashBlock = (unsigned char*)malloc(1024 * 1024 * 3072);
+    g_hashBlock = (unsigned char*)malloc(1024ULL * 1024ULL * 3072ULL);
     if (g_hashBlock == NULL) {
         printf("Unable to allocate 3GB hash block, aborting\n");
         exit(0);
