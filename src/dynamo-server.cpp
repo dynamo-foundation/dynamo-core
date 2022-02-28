@@ -40,6 +40,7 @@ CDynEngine* g_dynEngine;
 CContractManager* g_contractMgr;
 CNFTManager* g_nftMgr;
 CWebServer* g_webServer;
+unsigned char* g_hashBlock;
 
 bool IS_TESTNET;
 
@@ -263,7 +264,9 @@ static bool AppInit(int argc, char* argv[])
 int main(int argc, char* argv[])
 {
 
-    IS_TESTNET = false;
+    IS_TESTNET = true;
+
+
 
 #ifdef WIN32
     util::WinCmdLineArgs winArgs;
