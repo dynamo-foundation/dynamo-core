@@ -276,7 +276,7 @@ std::string CDynProgram::execute(unsigned char* blockHeader, std::string prevBlo
             uint64_t col = (iResult[4] + iResult[5] + iResult[6] + iResult[7]) % 32768;
             uint64_t index = row * 32768 + col;
             const uint64_t hashBlockSize = 1024ULL * 1024ULL * 3072ULL;
-            for (int i = 0; i < 256; i++)
+            for (int i = 0; i < 128; i++)
                 iResult[i % 8] += g_hashBlock[(index + i) % hashBlockSize];
         }
 
