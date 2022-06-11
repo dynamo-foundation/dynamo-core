@@ -264,7 +264,7 @@ static bool AppInit(int argc, char* argv[])
 int main(int argc, char* argv[])
 {
 
-    IS_TESTNET = true;
+    IS_TESTNET = false;
 
     //todo - need a global var for hash block size
     g_hashBlock = (unsigned char*)malloc(1024ULL * 1024ULL * 3072ULL);

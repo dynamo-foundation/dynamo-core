@@ -29,6 +29,7 @@
     <ClCompile Include="..\..\src\primitives\contract_manager.cpp" />
     <ClCompile Include="..\..\src\primitives\dynnft.cpp" />
     <ClCompile Include="..\..\src\primitives\dynnft_manager.cpp" />
+    <ClCompile Include="..\..\src\primitives\staking.cpp" />
     <ClCompile Include="..\..\src\primitives\transaction.cpp" />
     <ClCompile Include="..\..\src\pubkey.cpp" />
     <ClCompile Include="..\..\src\script\bitcoinconsensus.cpp" />
@@ -46,6 +47,7 @@
     <ClInclude Include="..\..\src\primitives\contract_manager.h" />
     <ClInclude Include="..\..\src\primitives\dynnft.h" />
     <ClInclude Include="..\..\src\primitives\dynnft_manager.h" />
+    <ClInclude Include="..\..\src\primitives\staking.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

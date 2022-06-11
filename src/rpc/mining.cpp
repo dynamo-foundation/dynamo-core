@@ -1742,6 +1742,8 @@ static const CRPCCommand commands[] =
 
 
 
+
+
     { "generating",          &generatetoaddress,       },
     { "generating",          &generatetodescriptor,    },
     { "generating",          &generateblock,           },

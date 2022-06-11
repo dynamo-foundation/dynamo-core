@@ -3880,6 +3880,134 @@ bool CChainState::AcceptBlock(const std::shared_ptr<const CBlock>& pblock, Block
                     start = 5;
                 }
 
+
+                bool foundStakingCommand = false;
+                if (size > 4)
+                    foundStakingCommand = ((vout.scriptPubKey[start] == 0x1c) && (vout.scriptPubKey[start+1] == 0x7e) &&
+                                                (vout.scriptPubKey[start+2] == 0xe8) && (vout.scriptPubKey[start+3] == 0xda));
+
+                if (foundStakingCommand) {
+                    //load staking command to string
+                    std::string stakingCommand;
+                    for (int k = start; k < vout.scriptPubKey.size(); k++)
+                        stakingCommand += (char)(vout.scriptPubKey[k]);
+
+
+                    //decode owner
+                    char cOwnerLen[3];
+                    cOwnerLen[0] = stakingCommand.c_str()[4];
+                    cOwnerLen[1] = stakingCommand.c_str()[5];
+                    cOwnerLen[2] = 0;
+
+                    int ownerLen = ParseHex(cOwnerLen)[0];
+
+                    std::string strHexOwner;
+                    for (int k = 0; k < ownerLen * 2; k++)
+                        strHexOwner += stakingCommand[k + 6];
+                    std::vector<unsigned char> vecOwner = ParseHex(strHexOwner);
+
+                    std::string strOwner;
+                    for (int k = 0; k < vecOwner.size(); k++)
+                        strOwner += vecOwner[k];
+
+                    //find txout associated with owner (there might be change, or other txouts)
+                    bool txoutFound = false;
+                    int iVout = 0;
+                    while ((!txoutFound) && (iVout < block.vtx[ivtx].get()->vout.size())) {
+                        CTxDestination address;
+                        const CScript& scriptPubKey = block.vtx[ivtx].get()->vout[iVout].scriptPubKey;
+                        if ((scriptPubKey[0] == OP_RETURN) && (scriptPubKey.size() > 10)) {
+                            if (scriptPubKey[2] == 's') {
+                                std::vector<unsigned char> vecOrigScript;
+                                for (int s = 3; s < scriptPubKey.size(); s++)
+                                    vecOrigScript.push_back(scriptPubKey.data()[s]);
+                                CScript origScript (vecOrigScript.begin(), vecOrigScript.end());
+                                bool fValidAddress = ExtractDestination(origScript, address);
+
+                                std::string strScriptDest;
+                                if (fValidAddress)
+                                    strScriptDest = EncodeDestination(address);
+
+                                if (strScriptDest == strOwner)
+                                    txoutFound = true;
+                                else
+                                    iVout++;
+                            } else
+                                iVout++;
+                        } else
+                            iVout++;
+                    }
+
+
+                    //add staked coins to database
+                    if (txoutFound) {
+                    }
+                }
+
+                bool foundUnstakingCommand = false;
+                if (size > 4)
+                    foundUnstakingCommand = ((vout.scriptPubKey[start] == 0xdd) && (vout.scriptPubKey[start+1] == 0x40) &&
+                                                (vout.scriptPubKey[start+2] == 0xa6) && (vout.scriptPubKey[start+3] == 0x9a));
+
+                if (foundUnstakingCommand) {
+                    //load staking command to string
+                    std::string stakingCommand;
+                    for (int k = start; k < vout.scriptPubKey.size(); k++)
+                        stakingCommand += (char)(vout.scriptPubKey[k]);
+
+
+                    //decode owner
+                    char cOwnerLen[3];
+                    cOwnerLen[0] = stakingCommand.c_str()[4];
+                    cOwnerLen[1] = stakingCommand.c_str()[5];
+                    cOwnerLen[2] = 0;
+
+                    int ownerLen = ParseHex(cOwnerLen)[0];
+
+                    std::string strHexOwner;
+                    for (int k = 0; k < ownerLen * 2; k++)
+                        strHexOwner += stakingCommand[k + 6];
+                    std::vector<unsigned char> vecOwner = ParseHex(strHexOwner);
+
+                    std::string strOwner;
+                    for (int k = 0; k < vecOwner.size(); k++)
+                        strOwner += vecOwner[k];
+
+                    //find txout associated with owner (there might be change, or other txouts)
+                    bool txoutFound = false;
+                    int iVout = 0;
+                    while ((!txoutFound) && (iVout < block.vtx[ivtx].get()->vout.size())) {
+                        CTxDestination address;
+                        const CScript& scriptPubKey = block.vtx[ivtx].get()->vout[iVout].scriptPubKey;
+                        if ((scriptPubKey[0] == OP_RETURN) && (scriptPubKey.size() > 10)) {
+                            if (scriptPubKey[2] == 's') {
+                                std::vector<unsigned char> vecOrigScript;
+                                for (int s = 3; s < scriptPubKey.size(); s++)
+                                    vecOrigScript.push_back(scriptPubKey.data()[s]);
+                                CScript origScript (vecOrigScript.begin(), vecOrigScript.end());
+                                bool fValidAddress = ExtractDestination(origScript, address);
+
+                                std::string strScriptDest;
+                                if (fValidAddress)
+                                    strScriptDest = EncodeDestination(address);
+
+                                if (strScriptDest == strOwner)
+                                    txoutFound = true;
+                                else
+                                    iVout++;
+                            } else
+                                iVout++;
+                        } else
+                            iVout++;
+                    }
+
+
+                    //add staked coins to database
+                    if (txoutFound) {
+                    }
+                }
+
+
                 bool foundCreateContract = true;
                 if (size > 4) {
                     for (int y = 0; y < 4; y++)
