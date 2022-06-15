@@ -3941,6 +3941,8 @@ bool CChainState::AcceptBlock(const std::shared_ptr<const CBlock>& pblock, Block
 
                     //add staked coins to database
                     if (txoutFound) {
+//////                        g_staking->
+                        /////////g_dynEngine->createContract(block.vtx[ivtx].get()->GetHash().GetHex(), block.GetBlockHeader().GetHash().GetHex(), strOwner, block.vtx[ivtx].get()->vout[iVout].nValue, code);
                     }
                 }
 
@@ -4002,8 +4004,12 @@ bool CChainState::AcceptBlock(const std::shared_ptr<const CBlock>& pblock, Block
                     }
 
 
-                    //add staked coins to database
+                    //unstake coins from database and schedule coinbase payout
                     if (txoutFound) {
+///////                        g_dynEngine->createContract(block.vtx[ivtx].get()->GetHash().GetHex(), block.GetBlockHeader().GetHash().GetHex(), strOwner, block.vtx[ivtx].get()->vout[iVout].nValue, code);
+                    }
+                    else {
+                        //todo - fail validation or do we care?
                     }
                 }
 

@@ -30,6 +30,7 @@
 #include <consensus/dynengine.h>
 #include <primitives/dynnft_manager.h>
 #include <rpc/webserver.h>
+#include <primitives/staking.h>
 
 
 const std::function<std::string(const char*)> G_TRANSLATION_FUN = nullptr;
@@ -40,7 +41,7 @@ CDynEngine* g_dynEngine;
 CContractManager* g_contractMgr;
 CNFTManager* g_nftMgr;
 CWebServer* g_webServer;
-unsigned char* g_hashBlock;
+CStaking* g_staking;
 
 bool IS_TESTNET;
 
@@ -266,13 +267,6 @@ int main(int argc, char* argv[])
 
     IS_TESTNET = false;
 
-    //todo - need a global var for hash block size
-    g_hashBlock = (unsigned char*)malloc(1024ULL * 1024ULL * 3072ULL);
-    if (g_hashBlock == NULL) {
-        printf("Unable to allocate 3GB hash block, aborting\n");
-        exit(0);
-    }
-    memset(g_hashBlock, 0, 1024ULL * 1024ULL * 3072ULL);
 
 #ifdef WIN32
     util::WinCmdLineArgs winArgs;

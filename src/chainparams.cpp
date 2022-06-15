@@ -212,6 +212,8 @@ public:
 
         g_nftMgr = new CNFTManager();
 
+        g_staking = new CStaking();
+
         /**
          * The message start string is designed to be unlikely to occur in normal data.
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce

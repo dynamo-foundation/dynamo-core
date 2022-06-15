@@ -14,6 +14,7 @@
 #include "crypto/dynhash.h"
 #include "consensus/dynengine.h"
 #include <primitives/dynnft_manager.h>
+#include <primitives/staking.h>
 
 #include <memory>
 #include <vector>
