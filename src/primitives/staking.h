@@ -36,11 +36,7 @@ class CStakingPayout {
 class CStaking
 {
 
-    std::mutex payoutLock;
-    std::vector<CStakingPayout*> payoutList;
-    int lastEpochPaid;
-    int payoutIntervalCounter;      //used to spread out payments over many blocks to avoid congestion
-
+public:
     CStaking();
 
     //incoming stake command
@@ -57,6 +53,14 @@ class CStaking
 
     //my fullnode is entitled to a receipt claim
     void issueReceiptClaim();
+
+private:
+    std::mutex payoutLock;
+    std::vector<CStakingPayout*> payoutList;
+    int lastEpochPaid;
+    int payoutIntervalCounter;      //used to spread out payments over many blocks to avoid congestion
+
+
 
 
     //active staked balances (can be large e.g. > 100,000)

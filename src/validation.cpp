@@ -3892,18 +3892,21 @@ bool CChainState::AcceptBlock(const std::shared_ptr<const CBlock>& pblock, Block
                     for (int k = start; k < vout.scriptPubKey.size(); k++)
                         stakingCommand += (char)(vout.scriptPubKey[k]);
 
+                    //staking mode F (flex) or L (lock)
+                    char stakingMode = stakingCommand.c_str()[4];
+
 
                     //decode owner
                     char cOwnerLen[3];
-                    cOwnerLen[0] = stakingCommand.c_str()[4];
-                    cOwnerLen[1] = stakingCommand.c_str()[5];
+                    cOwnerLen[0] = stakingCommand.c_str()[5];
+                    cOwnerLen[1] = stakingCommand.c_str()[6];
                     cOwnerLen[2] = 0;
 
                     int ownerLen = ParseHex(cOwnerLen)[0];
 
                     std::string strHexOwner;
                     for (int k = 0; k < ownerLen * 2; k++)
-                        strHexOwner += stakingCommand[k + 6];
+                        strHexOwner += stakingCommand[k + 7];
                     std::vector<unsigned char> vecOwner = ParseHex(strHexOwner);
 
                     std::string strOwner;

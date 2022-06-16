@@ -26,10 +26,16 @@ void CStaking::processRewardPayout() {
     //if the height - cooldown mod the epoch = 0 then process payouts
     //payouts are processed in consecutive blocks by mod with the payout modulus
 
+    //block vaidation forces miners to include POS rewards, so all pending rewards need to be built from genesis
+
     int bestHeight;
     
     {
     LOCK(cs_main);
+    /*
+    if (::ChainstateActive().IsInitialBlockDownload())
+        return;
+        */
     //::ChainActive().Tip()->GetBlockHash().GetHex();
     bestHeight = ::ChainActive().Tip()->nHeight;
     }
@@ -43,8 +49,40 @@ void CStaking::processRewardPayout() {
         if (lastEpoch != lastEpochPaid) {
             //calculate all rewards that are due for payment
 
-            //need staking database here - has to be fast
-            //need ticket database here
+            //each ticket will be validated at time of submission - no need to revalidate saking power
+            //scan last epoch of blocks for ticket claims
+
+            CBlock block;
+            CBlockIndex* pblockindex;
+
+            //read all blocks from last epoch
+            for (int blockNum = startOfLastEpoch; blockNum <= endOfLastEpoch; blockNum++)
+                {
+                LOCK(cs_main);
+                pblockindex = ::ChainActive()[blockNum];
+                ReadBlockFromDisk(block, pblockindex, Params().GetConsensus());
+                //for each block, sum all tickets
+
+                }
+   
+
+            /*
+            *
+            * 
+    return pblockindex->GetBlockHash().GetHex();
+
+    {
+        LOCK(cs_main);
+        pblockindex = g_chainman.m_blockman.LookupBlockIndex(hash);
+        tip = ::ChainActive().Tip();
+
+        if (!pblockindex) {
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Block not found");
+        }
+
+    }
+            */
+            
 
             payoutIntervalCounter = 0;
             lastEpochPaid = lastEpoch;
