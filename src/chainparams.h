@@ -117,10 +117,12 @@ public:
     const CCheckpointData& Checkpoints() const { return checkpointData; }
 
     CScript developerFeeScript;
-    const std::string strDevFeeAddress = "dy1qzvx3yfrucqa2ntsw8e7dyzv6u6dl2c2wjvx5jy";
+    // const std::string strDevFeeAddress = "dy1qzvx3yfrucqa2ntsw8e7dyzv6u6dl2c2wjvx5jy";
+    const std::string strDevFeeAddress = "dy1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
     CScript charityFeeScript;
-    const std::string strCharityFeeAddress = "dy1qnt3gjkefzez7my4zmwx9w0xs3c2jcxks6kxrgp";
+    //const std::string strCharityFeeAddress = "dy1qnt3gjkefzez7my4zmwx9w0xs3c2jcxks6kxrgp";
+    const std::string strCharityFeeAddress = "dy1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
     CAmount devFeePerBlock;
     CAmount charityPerBlock;

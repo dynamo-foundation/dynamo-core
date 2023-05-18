@@ -138,8 +138,8 @@ public:
         std::string genesisMerkleRoot;
 
         if (IS_TESTNET) {
-            genesisHash = "0x0000af1f88dd6d8a5d3039579903dd425a0dbf1bac67e6352fe2203704728a1a";
-            genesisMerkleRoot = "0xbb76c63e66f6d6f9a6f45d05a4ef802732241b08765d6cc58738faebec5c913b";
+            genesisHash = "0x0000651d559b63b751ae9dd61140c29c2131836bfe88839d231f64fca06e853f";
+            genesisMerkleRoot = "0x21ba074e6bd7f6a314797566fa4dd8f67941e692ab1d6f9b53d68695d21623bd";
         } else {
             genesisHash = "0x0000bced5a01a0914d7ca7e3ea5a37063d690d90b18de3bc0629e76a894715a0";
             genesisMerkleRoot = "0xbb76c63e66f6d6f9a6f45d05a4ef802732241b08765d6cc58738faebec5c913b";
@@ -176,8 +176,8 @@ public:
         consensus.nMinimumChainWork = uint256S("0000000000000000000000000000000000000000000000000000000000000001");
         consensus.defaultAssumeValid = uint256S(genesisHash); 
 
-        devFeePerBlock = 5000000;
-        charityPerBlock = 5000000;
+        devFeePerBlock = 0;
+        charityPerBlock = 0;
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 0);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 5);
@@ -251,7 +251,7 @@ public:
                   
 
         if (IS_TESTNET) {
-            genesis = CreateGenesisBlock(1622653676, 49382, 0x1f00ffff, 1, 1, devFeePerBlock, charityPerBlock);
+            genesis = CreateGenesisBlock(1684376231, 94650, 0x1f00ffff, 1, 1, devFeePerBlock, charityPerBlock);
         } else {
             genesis = CreateGenesisBlock(1621740839, 128271, 0x1f00ffff, 1, 1, devFeePerBlock, charityPerBlock);
         }
