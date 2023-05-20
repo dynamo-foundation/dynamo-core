@@ -138,7 +138,7 @@ public:
         std::string genesisMerkleRoot;
 
         if (IS_TESTNET) {
-            genesisHash = "0x0000651d559b63b751ae9dd61140c29c2131836bfe88839d231f64fca06e853f";
+            genesisHash = "0x0000aa91b8738f8c886ea3deb31125566cfaf873875f2548b8d4a1e98a55bf76";
             genesisMerkleRoot = "0x21ba074e6bd7f6a314797566fa4dd8f67941e692ab1d6f9b53d68695d21623bd";
         } else {
             genesisHash = "0x0000bced5a01a0914d7ca7e3ea5a37063d690d90b18de3bc0629e76a894715a0";
@@ -251,7 +251,7 @@ public:
                   
 
         if (IS_TESTNET) {
-            genesis = CreateGenesisBlock(1684376231, 94650, 0x1f00ffff, 1, 1, devFeePerBlock, charityPerBlock);
+            genesis = CreateGenesisBlock(1684382266, 75452, 0x1f00ffff, 1, 1, devFeePerBlock, charityPerBlock);
         } else {
             genesis = CreateGenesisBlock(1621740839, 128271, 0x1f00ffff, 1, 1, devFeePerBlock, charityPerBlock);
         }
@@ -271,6 +271,7 @@ public:
         if (IS_TESTNET) {
             vSeeds.emplace_back("testnet1.dynamocoin.org");
             vSeeds.emplace_back("testnet2.dynamocoin.org");
+            vSeeds.emplace_back("192.168.1.117");
         } else {
             vSeeds.emplace_back("prod1.dynamocoin.org");
             vSeeds.emplace_back("prod2.dynamocoin.org");
@@ -384,9 +385,10 @@ public:
         time_t t;
         time(&t);
         //genesis = CreateGenesisBlock(1617319298, 22276, 0x1f00ffff, 1, 50 * COIN);
-        //MineGenesis(genesis, consensus.powLimit, true);
 
-        consensus.hashGenesisBlock = genesis.GetHash();
+        MineGenesis(genesis, consensus.powLimit, true);
+
+        //consensus.hashGenesisBlock = genesis.GetHash();
         assert(consensus.hashGenesisBlock == uint256S("0x0000871d1d7f07340dce999fc494e6ff44d4fbc168ac9ba27efc51cb7365c44e"));
         assert(genesis.hashMerkleRoot == uint256S("0xd4abb614bfed83e189403620669e98fd63bb0bf218151ffb98f5ffc066fb58db"));
 
@@ -595,6 +597,7 @@ public:
         UpdateActivationParametersFromArgs(args);
 
         //genesis = CreateGenesisBlock(1296688602, 2, 0x207fffff, 1, 50 * COIN);
+
         consensus.hashGenesisBlock = genesis.GetHash();
         assert(consensus.hashGenesisBlock == uint256S("0x0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206"));
         assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
